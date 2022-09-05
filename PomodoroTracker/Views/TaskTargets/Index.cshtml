@@ -1,0 +1,50 @@
+﻿@model IEnumerable<PomodoroTracker.Models.TaskTarget>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<html>
+    <head>
+        <style>
+            table{
+                margin-top: 75px;
+                font-family: "Lucida Console", "Courier New", monospace; 
+                background-color:mediumseagreen;
+                border-style: ridge;
+            }
+        </style>
+
+    </head>
+    <body>
+        <h1>TO DO LIST</h1>
+
+        <p>
+            <a asp-action="Create">Add a task</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TaskTargetName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaskTargetName)
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@item.TaskTargetId">Delete</a>
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>
+
+
+    </body>
+</html>
+

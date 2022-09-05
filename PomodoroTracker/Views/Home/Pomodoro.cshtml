@@ -1,0 +1,307 @@
+﻿<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.3/howler.min.js" integrity="sha256-/Q4ZPy6sMbk627wHxuaWSIXS1y7D2KnMhsm/+od7ptE=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" integrity="sha256-He3QEBKoL/nMXlVsoM7S2C2kjFQqS5L+mgA+F8LpG+U=" crossorigin="anonymous">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha256-3blsJd4Hli/7wCQ+bmgXfOdK7p/ZUMtPXY08jmxSSgk=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.3/howler.core.min.js" integrity="sha256-KNY0IDDc9kAie/G8wTJ9BeGjBRqoPgadY2FQM0JmdYc=" crossorigin="anonymous"></script>
+
+        <style>
+            #pomodoro-container {
+                margin-top: 75px;
+                font-family: "Lucida Console", "Courier New", monospace; 
+                background-color:mediumseagreen;
+                border-style: ridge;
+            }
+            #buttons{
+                padding: 15px 15px;
+            }
+            .center{
+                top: calc(50% - 10px);
+                width: 100%;
+                text-align: center;
+                font-size: 20;
+            }
+            .timer-area {
+                margin-top: 50px;
+                text-align: center;
+                font-size: 35px;
+                color:black;
+            }
+            .check{
+                margin-top: 20px;
+                font-size: 16px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class = "container">
+           <div id = "pomodoro-container">
+                <!-- Horizontal center -->
+                <div class = "center">
+                    <!-- 3 option created with radio button for 'Pomodoro', 'Short Break', 'Long Break' -->
+                    <label for="option1" class="radio">
+                        <input type="radio" name="rdo" id="option1" class="hidden" checked="checked">POMODORO     
+                    </label>
+                    <label for="option2" class="radio">
+                        <input type="radio" name="rdo" id="option2" class="hidden" checked="checked">SHORT BREAK
+                    </label>
+                    <label for="option3" class="radio">
+                        <input type="radio" name="rdo" id="option3" class="hidden" checked="checked">LONG BREAK
+                    </label>
+                </div>
+                <!-- 2 button for start and stop actions -->
+                <div id = "buttons" class = "row">
+                    <div class="col-4 text-right">
+                        <button id="start" type="button" class="btn btn-light">START</button>                        
+                    </div>
+                    <div class="col-8 text-center">
+                        <button id="stop" type="button" class="btn btn-light">STOP</button>
+                    </div>
+                </div>
+                <!--Pomodoro counter buttons-->
+                <center>
+                    <div id  = "pomodoro-counter">
+                        POMODORO COUNTER 
+                    </div>
+                    
+                </center>
+                <center>
+                    <div class = "check">
+                        <div>
+                            <input type="checkbox" id="pomodoro1">
+                            <label for="scales">1</label>
+                        </div>        
+                        <div>
+                            <input type="checkbox" id="pomodoro2">
+                            <label for="scales">2</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="pomodoro3">
+                            <label for="scales">3</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="pomodoro4">
+                            <label for="scales">4 </label>
+                        </div>
+                    </div>
+                </center> 
+                <div class="row">
+                    <div class="col-12 col-md-5 timer-area"><span id="minute">25</span> minutes</div>
+                    <div class="col-12 col-md-2 timer-area">|</div>
+                    <div class="col-12 col-md-5 timer-area"><span id="seconds">0</span> seconds</div>
+                </div>
+                <center>
+                    <button id="reset" type="button" class="btn btn-dark">Reset Timer</button>
+                </center>
+                
+           </div>
+        </div>
+        <script>
+            var pomodoro_minute = "25";
+            var short_break_minute = "5";
+            var long_break_minute = "10";
+
+            var timer = pomodoro_minute + ":00";
+
+            var interval;
+            var flag_interval = false;
+
+            //start operation
+            $("#start").click(function() {   
+                if(!flag_interval){
+                    startTimer();
+                }                        
+            });     
+
+            //stop operation
+            $("#stop").click(function() {        
+                clearInterval(interval);
+                flag_interval = false;
+            });
+
+            //reset operation
+            $("#reset").click(function() {
+                reset();
+            });
+
+            //option1 click-> POMODORO button
+            $("#option1").click(function() {        
+                restartInterval(pomodoro_minute);
+            });
+
+            //option2 click->SHORT BREAK button
+            $("#option2").click(function() {                
+                restartInterval(short_break_minute);
+            });
+
+            //option3 click->LONG BREAK button
+            $("#option3").click(function() {        
+                restartInterval(long_break_minute);
+            });
+
+            function restartInterval(minuteVal){
+                clearInterval(interval);
+                flag_interval = false;
+                $("#seconds").html("0");
+                $("#minute").html(minuteVal);        
+                timer = minuteVal + ":00";
+                startTimer();
+            }
+
+
+            function startTimer(){
+                flag_interval = true;
+                interval = setInterval(function(){
+                    var new_timer = timer.split(':'); //after split->new_time[0]=> pomodoro_minute, new_timer[1]=>00
+                    var stop = false;
+                    //parse the values
+                    var minutes = parseInt(new_timer[0], 10);
+                    var seconds = parseInt(new_timer[1], 10);
+                    seconds -= 1;
+                    if(seconds < 0){
+                        minutes -= 1;
+                    }
+                    if (minutes < 0) { //Time is up.
+                        reset();  
+                        stop = true;
+                        notifyMe(); // send the message
+                        playSound();
+                        showToast();
+                    }
+                    if(!stop){
+                        if(seconds < 0){
+                            seconds = 59;
+                        }
+                        if((seconds > 0) && (seconds < 10)){
+                            seconds = '0' + seconds
+                        }
+                        $("#seconds").html(seconds);
+                        $("#minute").html(minutes);
+                        console.log(minutes + ':' + seconds);
+                        //update timer
+                        timer = minutes + ':' + seconds;
+                    }
+                },1000);
+            }
+
+
+
+            function reset(){
+                //clearInterval() method clears a timer set with the setInterval() method
+                clearInterval(interval);     
+                flag_interval = false;
+                $("#seconds").html("0"); 
+                var minuteValue = "0" ;
+                //arrange the minute according to the last click
+                if($('#option1').is(':checked')){
+                    minuteValue = pomodoro_minute;
+                }
+                if($('#option2').is(':checked')){
+                    minuteValue = short_break_minute;
+                }
+                if($('#option3').is(':checked')){
+                    minuteValue= long_break_minute ;
+                }
+                timer = minuteValue + ":00";
+                
+                $("#minute").html(minuteValue);
+            }
+
+
+
+            //user notification
+            function notifyMe() {
+                // Check if the browser supports notifications
+                if (!("Notification" in window)) {
+                    alert("This browser does not support system notifications");
+                }
+                else if (Notification.permission === "granted") {
+                    // Check whether notification permissions have already been granted;
+                    // if so, create a notification
+                    notify();
+                }
+                else if (Notification.permission !== 'denied') {
+                    // We need to ask the user for permission
+                    Notification.requestPermission(function (permission) {
+                        if (permission === "granted") {
+                            notify();
+                        }
+                    });
+                }
+            }
+
+            //browser notification
+            function notify(){
+                var message = getNotifyMessage();
+                var notification = new Notification({body: message,});
+
+                notification.onclick = function () {
+                    window.focus();
+                };
+
+                //Wait 10 seconds for the message
+                setTimeout(notification.close.bind(notification), 10000);
+            }
+
+            //get the message which will be seen by the user
+            function getNotifyMessage(){
+                var message2 = "";
+                if ($('#option1').is(':checked')) {
+                    message2 = "You have completed a pomodoro!";
+                } 
+                if ($('#option2').is(':checked')) {
+                    message2 = "Your short break is done!";
+                }
+                if ($('#option3').is(':checked')) {
+                    message2 = "Your long break is done!";
+                }
+                return message2;
+            }
+
+            function showToast(){
+                toastr.options = {
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                };
+
+                var message = "";
+                if($('#option1').is(':checked')){
+                    message = "Congrats! You have completed a pomodoro!";
+                }
+                else if($('#option2').is(':checked')){
+                    message = "Your short break is done.";
+                }
+                else {
+                    message = "Your long break is done.";
+                }
+
+                toastr["success"](message);
+            }
+
+            function playSound(){
+                var audioName = "analog-watch-alarm_daniel-simion.mp3";
+                var sound = new Howl({
+                    src: [audioName]
+                });
+                sound.play();
+            }
+
+        </script>  
+    </body>
+</html>
