@@ -159,7 +159,7 @@ function getNotifyMessage() {
     return message2;
 }
 
-function showToast() {
+function showToastMessage() {
     toastr.options = {
         "closeButton": true,
         "debug": false,
