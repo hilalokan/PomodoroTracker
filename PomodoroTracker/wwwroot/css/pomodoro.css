@@ -1,7 +1,7 @@
 ﻿#pomodoro-container {
-    margin-top: 75px;
+    margin-top: 40px;
     font-family: "Lucida Console", "Courier New", monospace;
-    background-color: mediumseagreen;
+    background-color:cadetblue;
     border-style: ridge;
 }
 
@@ -17,13 +17,13 @@
 }
 
 .timer-area {
-    margin-top: 50px;
+    margin-top: 10px;
     text-align: center;
     font-size: 35px;
     color: black;
 }
 
 .check {
-    margin-top: 20px;
+    margin-top: 5px;
     font-size: 16px;
 }
