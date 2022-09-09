@@ -1,5 +1,5 @@
 ﻿var pomodoro_minute = "25";
-var short_break_minute = "5";
+var short_break_minute = "1";
 var long_break_minute = "10";
 
 var timer = pomodoro_minute + ":00";
@@ -67,7 +67,7 @@ function startTimer() {
             stop = true;
             notifyMe(); // send the message
             playSound();
-            showToast();
+            showToastMessage();
         }
         if (!stop) {
             if (seconds < 0) {
@@ -193,9 +193,8 @@ function showToastMessage() {
 }
 
 function playSound() {
-    var audioName = "analog-watch-alarm_daniel-simion.mp3";
-    var sound = new Howl({
-        src: [audioName]
-    });
-    sound.play();
+    audio = new Audio("http://codeskulptor-demos.commondatastorage.googleapis.com/descent/gotitem.mp3");
+    audio.oncanplay = function () {
+        audio.play();
+    }
 }
