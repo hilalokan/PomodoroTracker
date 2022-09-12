@@ -47,12 +47,13 @@ function stateDone() {
 
 //start operation
 $("#start").click(function () {
+    playSoundButtons();
     if (!flag_interval) {
         if (flag_choosen) {
             startTimer();
         }
         else {
-            playSound();
+            playSoundWarning();
             $("#usmsg").html("YOU MUST CHOOSE A TASK!");
         }
     }
@@ -60,6 +61,7 @@ $("#start").click(function () {
 
 //stop operation
 $("#stop").click(function () {
+    playSoundButtons();
     clearInterval(interval);
     flag_choosen = true;
     flag_interval = false;
@@ -67,11 +69,13 @@ $("#stop").click(function () {
 
 //reset operation
 $("#reset").click(function () {
+    playSoundButtons();
     reset();
 });
 
 //option1 click-> POMODORO button
 $("#option1").click(function () {
+    playSoundButtons();
     flag_pomodoro = true;
     flag_choosen = false;
     restartInterval(pomodoro_minute);
@@ -79,6 +83,7 @@ $("#option1").click(function () {
 
 //option2 click->SHORT BREAK button
 $("#option2").click(function () {
+    playSoundButtons();
     flag_pomodoro = false;
     flag_choosen = true;
     restartInterval(short_break_minute);
@@ -86,6 +91,7 @@ $("#option2").click(function () {
 
 //option3 click->LONG BREAK button
 $("#option3").click(function () {
+    playSoundButtons();
     flag_pomodoro = false;
     flag_choosen = true;
     restartInterval(long_break_minute);
@@ -247,6 +253,20 @@ function showToastMessage() {
 
 function playSound() {
     audio = new Audio("http://codeskulptor-demos.commondatastorage.googleapis.com/descent/gotitem.mp3");
+    audio.oncanplay = function () {
+        audio.play();
+    }
+}
+
+function playSoundButtons() {
+    audio = new Audio("http://commondatastorage.googleapis.com/codeskulptor-demos/pyman_assets/eatpellet.ogg");
+    audio.oncanplay = function () {
+        audio.play();
+    }
+}
+
+function playSoundWarning() {
+    audio = new Audio("http://codeskulptor-demos.commondatastorage.googleapis.com/pang/pop.mp3");
     audio.oncanplay = function () {
         audio.play();
     }
