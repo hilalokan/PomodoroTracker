@@ -5,8 +5,8 @@ var long_break_minute = "10";
 var timer = pomodoro_minute + ":00";
 
 var interval;
-var flag_interval = false;
 
+var flag_interval = false;
 var flag_pomodoro = false;
 var flag_choosen = false;
 
@@ -28,24 +28,19 @@ $('#taskTable tr').each(function () {
                 flag_choosen = true;
                 $("#usmsg").html(" ");
             }
-
         });
     });
 });
 
 function stateDone() {
     $('#taskTable tr').each(function () {
-
         $(this).find('#state').each(function () {
             if ($(this).html() == 'Active') {
                 if (flag_pomodoro) {
                     $(this).html("Done")
                 }
-
             }
-
         });
-
     });
 }
 
