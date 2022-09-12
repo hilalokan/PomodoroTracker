@@ -1,5 +1,5 @@
-﻿var pomodoro_minute = "25";
-var short_break_minute = "5";
+﻿var pomodoro_minute = "1";
+var short_break_minute = "1";
 var long_break_minute = "10";
 
 var timer = pomodoro_minute + ":00";
