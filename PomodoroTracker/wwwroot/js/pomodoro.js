@@ -9,6 +9,7 @@ var interval;
 var flag_interval = false;
 var flag_pomodoro = false;
 var flag_choosen = false;
+var flag_reset = false;
 
 
 $('#taskTable tr').each(function () {
@@ -70,6 +71,9 @@ $("#stop").click(function () {
 //reset operation
 $("#reset").click(function () {
     playSoundButtons();
+    if (flag_reset) {
+        flag_choosen = true;
+    }
     reset();
 });
 
@@ -79,6 +83,7 @@ $("#option1").click(function () {
     flag_pomodoro = true;
     flag_choosen = false;
     restartInterval(pomodoro_minute);
+    flag_reset = true;
 });
 
 //option2 click->SHORT BREAK button
