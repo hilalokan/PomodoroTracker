@@ -1,15 +1,16 @@
-﻿var pomodoro_minute = "1";
-var short_break_minute = "1";
+﻿var pomodoro_minute = "25";
+var short_break_minute = "5";
 var long_break_minute = "10";
 
 var timer = pomodoro_minute + ":00";
 
 var interval;
 var flag_interval = false;
+
 var flag_pomodoro = false;
+var flag_choosen = false;
 
 
-//change state
 $('#taskTable tr').each(function () {
     $(this).hover(function () {
         $(this).css("background-color", "cornflowerblue")
@@ -19,10 +20,13 @@ $('#taskTable tr').each(function () {
     $(this).click(function () {
         $(this).find('#state').each(function () {
             if ($(this).html() == 'Active') {
-                $(this).html("-")
+                $(this).html("-");
+                flag_choosen = false;
             }
             else {
-                $(this).html("Active")
+                $(this).html("Active");
+                flag_choosen = true;
+                $("#usmsg").html(" ");
             }
 
         });
@@ -31,13 +35,17 @@ $('#taskTable tr').each(function () {
 
 function stateDone() {
     $('#taskTable tr').each(function () {
+
         $(this).find('#state').each(function () {
             if ($(this).html() == 'Active') {
                 if (flag_pomodoro) {
                     $(this).html("Done")
                 }
+
             }
+
         });
+
     });
 }
 
@@ -45,13 +53,20 @@ function stateDone() {
 //start operation
 $("#start").click(function () {
     if (!flag_interval) {
-        startTimer();
+        if (flag_choosen) {
+            startTimer();
+        }
+        else {
+            playSound();
+            $("#usmsg").html("YOU MUST CHOOSE A TASK!");
+        }
     }
 });
 
 //stop operation
 $("#stop").click(function () {
     clearInterval(interval);
+    flag_choosen = true;
     flag_interval = false;
 });
 
@@ -63,18 +78,21 @@ $("#reset").click(function () {
 //option1 click-> POMODORO button
 $("#option1").click(function () {
     flag_pomodoro = true;
+    flag_choosen = false;
     restartInterval(pomodoro_minute);
 });
 
 //option2 click->SHORT BREAK button
 $("#option2").click(function () {
     flag_pomodoro = false;
+    flag_choosen = true;
     restartInterval(short_break_minute);
 });
 
 //option3 click->LONG BREAK button
 $("#option3").click(function () {
     flag_pomodoro = false;
+    flag_choosen = true;
     restartInterval(long_break_minute);
 });
 
@@ -88,6 +106,7 @@ function restartInterval(minuteVal) {
 
 
 function startTimer() {
+    flag_choosen = false;
     flag_interval = true;
     interval = setInterval(function () {
         var new_timer = timer.split(':'); //after split->new_time[0]=> pomodoro_minute, new_timer[1]=>00
