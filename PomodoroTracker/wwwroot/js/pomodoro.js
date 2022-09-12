@@ -13,7 +13,7 @@ var flag_choosen = false;
 
 $('#taskTable tr').each(function () {
     $(this).hover(function () {
-        $(this).css("background-color", "cornflowerblue")
+        $(this).css("background-color", "darkcyan")
     }, function () {
         $(this).css("background-color", "cadetblue")
     });
