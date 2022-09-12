@@ -1,11 +1,46 @@
-﻿var pomodoro_minute = "25";
-var short_break_minute = "5";
+﻿var pomodoro_minute = "1";
+var short_break_minute = "1";
 var long_break_minute = "10";
 
 var timer = pomodoro_minute + ":00";
 
 var interval;
 var flag_interval = false;
+var flag_pomodoro = false;
+
+
+//change state
+$('#taskTable tr').each(function () {
+    $(this).hover(function () {
+        $(this).css("background-color", "cornflowerblue")
+    }, function () {
+        $(this).css("background-color", "cadetblue")
+    });
+    $(this).click(function () {
+        $(this).find('#state').each(function () {
+            if ($(this).html() == 'Active') {
+                $(this).html("-")
+            }
+            else {
+                $(this).html("Active")
+            }
+
+        });
+    });
+});
+
+function stateDone() {
+    $('#taskTable tr').each(function () {
+        $(this).find('#state').each(function () {
+            if ($(this).html() == 'Active') {
+                if (flag_pomodoro) {
+                    $(this).html("Done")
+                }
+            }
+        });
+    });
+}
+
 
 //start operation
 $("#start").click(function () {
@@ -27,16 +62,19 @@ $("#reset").click(function () {
 
 //option1 click-> POMODORO button
 $("#option1").click(function () {
+    flag_pomodoro = true;
     restartInterval(pomodoro_minute);
 });
 
 //option2 click->SHORT BREAK button
 $("#option2").click(function () {
+    flag_pomodoro = false;
     restartInterval(short_break_minute);
 });
 
 //option3 click->LONG BREAK button
 $("#option3").click(function () {
+    flag_pomodoro = false;
     restartInterval(long_break_minute);
 });
 
@@ -65,8 +103,10 @@ function startTimer() {
             reset();
             stop = true;
             notifyMe(); // send the message
+            stateDone();
             playSound();
             showToastMessage();
+            flag_pomodoro = false;
         }
         if (!stop) {
             if (seconds < 0) {
