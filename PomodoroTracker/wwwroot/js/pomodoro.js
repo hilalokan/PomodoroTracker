@@ -1,5 +1,5 @@
 ﻿var pomodoro_minute = "1";
-var short_break_minute = "2";
+var short_break_minute = "1";
 var long_break_minute = "10";
 
 var timer = pomodoro_minute + ":00";
@@ -32,6 +32,21 @@ $('#taskTable tr').each(function () {
         });
     });
 });
+
+function check() {
+    $('#taskTable tr').each(function () {
+        $(this).find('#state').each(function () {
+            if ($(this).html() == 'Active') {
+                flag_choosen = true;
+            }
+            else {
+                flag_choosen = false;
+            }
+        });
+    });
+
+    return flag_choosen;
+}
 
 function stateDone() {
     $('#taskTable tr').each(function () {
@@ -76,7 +91,8 @@ $("#reset").click(function () {
 //option1 click-> POMODORO button
 $("#option1").click(function () {
     playSoundButtons();
-    //flag_choosen = false;
+    flag_choosen = check();
+    console.log(flag_choosen);
     restartInterval(pomodoro_minute);
 });
 
