@@ -14,6 +14,7 @@
         <link rel="stylesheet"  href="~/css/pomodoro.css"/>
         <link rel="stylesheet"  href="~/css/message-container.css">
         <link rel="stylesheet"  href="~/css/table.css">
+
     </head>
     <body style="background-color:lightgray;">
         <!--Message Container-->
@@ -22,13 +23,18 @@
                 <center>
                     <span id = "usmsg"> </span>
                 </center>
+
             </div>
+
         </div>
         <!--Pomodoro Timer-->
         <center><h1>TIMER</h1></center>
             <div class = "container">
                <div id = "pomodoro-container">
                     <!-- Horizontal center -->
+                    <div class="container">
+                        Pomodoro<span id ="pomodoro_count"> 1</span>
+                    </div>
                     <div class = "center">
                         <!-- 3 option created with radio button for 'Pomodoro', 'Short Break', 'Long Break' -->
                         <label for="option1" class="radio">
@@ -50,36 +56,9 @@
                             <button id="stop" type="button" class="btn btn-light">STOP</button>
                         </div>
                     </div>
-                    <!--Pomodoro counter buttons-->
-                    <center>
-                        <div id  = "pomodoro-counter">
-                            POMODORO COUNTER 
-                        </div>
-                    
-                    </center>
-                    <center>
-                        <div class = "check">
-                            <div>
-                                <input type="checkbox" id="pomodoro1">
-                                <label for="scales">1</label>
-                            </div>        
-                            <div>
-                                <input type="checkbox" id="pomodoro2">
-                                <label for="scales">2</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="pomodoro3">
-                                <label for="scales">3</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="pomodoro4">
-                                <label for="scales">4 </label>
-                            </div>
-                        </div>
-                    </center> 
-                
+               
                     <div class="row">
-                        <div class="col-12 col-md-5 timer-area"><span id="minute">25</span> minutes</div>
+                        <div class="col-12 col-md-5 timer-area"><span id="minute">0</span> minutes</div>
                         <div class="col-12 col-md-2 timer-area">|</div>
                         <div class="col-12 col-md-5 timer-area"><span id="seconds">0</span> seconds</div>
                     </div>
@@ -90,13 +69,13 @@
                </div>
             </div><br /><br />
 
-        <center><h1>TO DO LIST</h1></center>
         <center>
-            <p>
+            <h1>TO DO LIST</h1>
+
+        <p>
             <a asp-action="Create">Add a task</a>
         </p>
         </center>
-        
         <table class="table" id="taskTable">
             <thead>
                 <tr>
@@ -125,8 +104,8 @@
         }
             </tbody>
         </table>
-
         <script src="~/js/pomodoro.js"></script>
     </body>
 </html>
+
 

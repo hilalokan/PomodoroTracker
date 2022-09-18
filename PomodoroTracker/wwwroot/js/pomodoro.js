@@ -1,5 +1,5 @@
-﻿var pomodoro_minute = "25";
-var short_break_minute = "5";
+﻿var pomodoro_minute = "1";
+var short_break_minute = "2";
 var long_break_minute = "10";
 
 var timer = pomodoro_minute + ":00";
@@ -7,9 +7,10 @@ var timer = pomodoro_minute + ":00";
 var interval;
 
 var flag_interval = false;
-var flag_pomodoro = false;
 var flag_choosen = false;
 var flag_reset = false;
+
+var count = 1;
 
 
 $('#taskTable tr').each(function () {
@@ -37,9 +38,7 @@ function stateDone() {
     $('#taskTable tr').each(function () {
         $(this).find('#state').each(function () {
             if ($(this).html() == 'Active') {
-                if (flag_pomodoro) {
-                    $(this).html("Done")
-                }
+                $(this).html("Done");
             }
         });
     });
@@ -80,8 +79,6 @@ $("#reset").click(function () {
 //option1 click-> POMODORO button
 $("#option1").click(function () {
     playSoundButtons();
-    flag_pomodoro = true;
-    flag_choosen = false;
     restartInterval(pomodoro_minute);
     flag_reset = true;
 });
@@ -89,7 +86,6 @@ $("#option1").click(function () {
 //option2 click->SHORT BREAK button
 $("#option2").click(function () {
     playSoundButtons();
-    flag_pomodoro = false;
     flag_choosen = true;
     restartInterval(short_break_minute);
 });
@@ -97,7 +93,6 @@ $("#option2").click(function () {
 //option3 click->LONG BREAK button
 $("#option3").click(function () {
     playSoundButtons();
-    flag_pomodoro = false;
     flag_choosen = true;
     restartInterval(long_break_minute);
 });
@@ -127,11 +122,22 @@ function startTimer() {
         if (minutes < 0) { //Time is up.
             reset();
             stop = true;
+            if ($('#option1').is(':checked')) {
+                stateDone();
+                if (count < 4) {
+                    count++;
+                    if (count == 5) {
+                        playSoundWarning();
+                        $("#usmsg").html("CONGRATULATIONS!!!. YOU HAVE COMPLETED 4 POMODOROS. YOU CAN TAKE A LONG BREAK.");
+                        count = 1;
+                    }
+                    $("#pomodoro_count").html(" " + count);
+                }
+            }
             notifyMe(); // send the message
-            stateDone();
+
             playSound();
             showToastMessage();
-            flag_pomodoro = false;
         }
         if (!stop) {
             if (seconds < 0) {
