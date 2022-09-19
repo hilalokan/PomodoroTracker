@@ -5,35 +5,49 @@
 
 <html>
     <head>
-        <style>
-            #what-is-container{
-                 margin-top: 75px;
-                 font-family: "Lucida Console", "Courier New", monospace;  
-                 color:black;
-                 background-color:cadetblue;
-                 border-style: ridge; 
-             }
-        </style>
+
+        <link rel="stylesheet" href="~/css/slide.css" />
+    
     </head>
-    <body style="background-color:lightgray">
-        <div class="container">
-           <div id = "what-is-container">
-               <h1 class="display-4" id = "head">Pomodoro Tracker</h1>
-               <p>What is Pomodoro Technique?<br /> <br />
-               The Pomodoro Technique is a time management system that encourages people to work with the time
-               they have—rather than against it. Using this method, you break your workday into 25-minute chunks
-               separated by five-minute breaks. These intervals are referred to as pomodoros. After about four 
-               pomodoros, you take a longer break of about 15 to 20 minutes.<br /> <br />
-               STEP 0 : Create a task list before you start working on your tasks.<br />
-               STEP 1 : Pick a task from that list.<br />
-               STEP 2 : Set a 25-minute timer<br />
-               STEP 3 : Work on your task until the time is up<br />
-               STEP 4 : Take a 5-minute short break<br />
-               STEP 5 : Every 4 pomodoros, take a longer break.</p>
-           </div>
-       </div>
+    <body style="background-color:rgb(217,85,80)">
+
+    <div class="slideshow-container">
 
 
+      <div class="mySlides fade">
+        <div class="numbertext">1 / 4</div>
+        <img src="~/images/image1.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">2 / 4</div>
+        <img src="~/images/image2.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 4</div>
+        <img src="~/images/image3.jpg" style="width:100%">
+      </div>
+
+      <div class="mySlides fade">
+        <div class="numbertext">4 / 4</div>
+        <img src="~/images/image4.jpg" style="width:100%">
+      </div>
+
+      <a class="prev" onclick="plusSlides(-1)">❮</a>
+      <a class="next" onclick="plusSlides(1)">❯</a>
+
+    </div>
+    <br>
+
+    <div style="text-align:center">
+      <span class="dot" onclick="currentSlide(1)"></span> 
+      <span class="dot" onclick="currentSlide(2)"></span> 
+      <span class="dot" onclick="currentSlide(3)"></span>
+      <span class="dot" onclick="currentSlide(4)"></span> 
+    </div>
+
+    <script src="~/js/slide.js"></script>
     </body>
 </html>
 

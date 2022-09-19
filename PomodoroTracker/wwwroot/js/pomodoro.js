@@ -1,5 +1,5 @@
-﻿var pomodoro_minute = "1";
-var short_break_minute = "1";
+﻿var pomodoro_minute = "25";
+var short_break_minute = "5";
 var long_break_minute = "10";
 
 var timer = pomodoro_minute + ":00";
@@ -14,9 +14,9 @@ var count = 1;
 
 $('#taskTable tr').each(function () {
     $(this).hover(function () {
-        $(this).css("background-color", "darkcyan")
+        $(this).css("background-color", "rgb(217,85,80)")
     }, function () {
-        $(this).css("background-color", "cadetblue")
+        $(this).css("background-color", "rgb(228,133,131)")
     });
     $(this).click(function () {
         $(this).find('#state').each(function () {
@@ -33,20 +33,20 @@ $('#taskTable tr').each(function () {
     });
 });
 
-function check() {
-    $('#taskTable tr').each(function () {
-        $(this).find('#state').each(function () {
-            if ($(this).html() == 'Active') {
-                flag_choosen = true;
-            }
-            else {
-                flag_choosen = false;
-            }
-        });
-    });
+//function check() {
+//    $('#taskTable tr').each(function () {
+//        $(this).find('#state').each(function () {
+//            if ($(this).html() == 'Active') {
+//                flag_choosen = true;
+//            }
+//            else {
+//                flag_choosen = false;
+//            }
+//        });
+//    });
 
-    return flag_choosen;
-}
+//    return flag_choosen;
+//}
 
 function stateDone() {
     $('#taskTable tr').each(function () {
@@ -91,7 +91,7 @@ $("#reset").click(function () {
 //option1 click-> POMODORO button
 $("#option1").click(function () {
     playSoundButtons();
-    flag_choosen = check();
+    // flag_choosen = check();
     console.log(flag_choosen);
     restartInterval(pomodoro_minute);
 });
@@ -150,8 +150,8 @@ function startTimer() {
                     $("#pomodoro_count").html(" " + count);
                 }
             }
-            notifyMe(); // send the message
-
+            //notifyMe();
+            // send the message 
             playSound();
             showToastMessage();
         }

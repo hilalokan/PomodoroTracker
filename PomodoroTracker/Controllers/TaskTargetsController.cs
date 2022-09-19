@@ -48,7 +48,7 @@ namespace PomodoroTracker.Controllers
         }
 
 
-        // GET: TaskTargets/Delete/5
+        // GET: TaskTargets/Delete/
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.TaskTarget == null)
@@ -66,7 +66,7 @@ namespace PomodoroTracker.Controllers
             return View(taskTarget);
         }
 
-        // POST: TaskTargets/Delete/5
+        // POST: TaskTargets/Delete/
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
